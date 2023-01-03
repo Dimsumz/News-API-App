@@ -11,8 +11,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     
     @IBOutlet weak var tableView: UITableView!
+    @IBAction func buttonOutlet(_ sender: UIButton) {
+        print(titleArray)
+        print(titleArray.count)
+        tableView.reloadData()
+    }
     
-    let itemArray = ["Item 1", "Item 2", "Item 3"]
+    
+    let testArray: [String] = ["test1", "test2", "test3", "test4"]
+    var titleArray: [String] = []
+    
+    var descriptionArray: [String] = []
+    var imageArray: [String] = []
+    var urlArray: [String] = []
     let cellIdentifier = "cell"
     
     override func viewDidLoad() {
@@ -20,27 +31,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         let url = "https://newsapi.org/v2/everything?q=Apple&from=2023-01-02&sortBy=popularity&apiKey=059a944b5cb9401d852ffb9e841301c4"
         getData(from: url)
-        print("Test")
                 
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.reloadData()
     }
     
     //number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.itemArray.count
+        //return self.testArray.count
+        return self.titleArray.count
+        
+        //return 200
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: newsViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! newsViewCell
         
-        cell.label.text = self.itemArray[indexPath.row]
+        cell.titleLabel.text = self.titleArray[indexPath.row]
+        //cell.titleLabel.text = self.testArray[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("you tapped cell number \(indexPath.row).")
+        //print(titleArray)
+
     }
     
     
@@ -80,16 +101,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             
-            print(json.status)
-            print(json.totalResults)
+            //print(json.status)
+            //print(json.totalResults)
             //print(json.articles)
             //print(json.title[0].author)
-            json.articles.forEach { a in
-                print(a.title)
+            for i in 0...10 {
+                self.titleArray.append(json.articles[i].title)
             }
-            
-            //print(json.articles.source.id)
-            
+            /*
+            json.articles.forEach { a in
+                self.titleArray.append(a.title)
+                self.descriptionArray.append(a.content)
+                self.urlArray.append(a.url)
+            }*/
         }).resume()
         //the .resume() is going to fire the request
     }
