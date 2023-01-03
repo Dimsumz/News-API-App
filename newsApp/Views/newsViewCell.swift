@@ -13,7 +13,6 @@ class newsViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var imageLabel: UIImageView!
     
     override func layoutSubviews() {
         super.layoutSubviews()

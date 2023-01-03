@@ -7,12 +7,13 @@
 
 import UIKit
 
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
     @IBOutlet weak var tableView: UITableView!
     @IBAction func buttonOutlet(_ sender: UIButton) {
-        print(titleArray)
+        //print(titleArray)
         print(titleArray.count)
         tableView.reloadData()
     }
@@ -42,7 +43,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
+        return 120
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,7 +51,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.titleLabel.text = self.titleArray[indexPath.row]
         cell.contentLabel.text = self.descriptionArray[indexPath.row]
-        //cell.titleLabel.text = self.testArray[indexPath.row]
         
         return cell
     }
@@ -94,6 +94,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.descriptionArray.append(a.content)
                 self.urlArray.append(a.url)
             }
+            print("data fetched")
         }).resume()
         //the .resume() is going to fire the request
     }
@@ -113,11 +114,4 @@ struct articleResults: Codable {
     let title: String
     let content: String
     let url: String
-    
-
 }
-/*
-struct sourceResults: Codable {
-    let name: String
-    let id: String?
-}*/
