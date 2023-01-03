@@ -17,24 +17,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.reloadData()
     }
     
-    
-    let testArray: [String] = ["test1", "test2", "test3", "test4"]
     var titleArray: [String] = []
-    
     var descriptionArray: [String] = []
     var imageArray: [String] = []
     var urlArray: [String] = []
     let cellIdentifier = "cell"
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         let url = "https://newsapi.org/v2/everything?q=Apple&from=2023-01-02&sortBy=popularity&apiKey=059a944b5cb9401d852ffb9e841301c4"
         getData(from: url)
                 
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.reloadData()
     }
     
     //number of rows in table view
@@ -53,6 +49,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell: newsViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! newsViewCell
         
         cell.titleLabel.text = self.titleArray[indexPath.row]
+        cell.contentLabel.text = self.descriptionArray[indexPath.row]
         //cell.titleLabel.text = self.testArray[indexPath.row]
         
         return cell
@@ -63,14 +60,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //print(titleArray)
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     //https://newsapi.org/v2/everything?q=Apple&from=2023-01-01&sortBy=popularity&apiKey=059a944b5cb9401d852ffb9e841301c4
@@ -100,20 +89,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return
             }
             
-            
-            //print(json.status)
-            //print(json.totalResults)
-            //print(json.articles)
-            //print(json.title[0].author)
-            for i in 0...10 {
-                self.titleArray.append(json.articles[i].title)
-            }
-            /*
             json.articles.forEach { a in
                 self.titleArray.append(a.title)
                 self.descriptionArray.append(a.content)
                 self.urlArray.append(a.url)
-            }*/
+            }
         }).resume()
         //the .resume() is going to fire the request
     }
